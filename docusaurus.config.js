@@ -20,15 +20,15 @@ const config = {
   },
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://razorblade23.github.io/the-python-ledger-engine',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/the-python-ledger-engine/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'razorblade23', // Usually your GitHub org/user name.
+  projectName: 'the-python-ledger', // Usually your repo name.
 
   onBrokenLinks: 'throw',
 
@@ -50,7 +50,7 @@ const config = {
           routeBasePath: '/', 
           sidebarPath: require.resolve('./sidebars.js'),
           // This allows students to click "Edit this page" and go to the content repo
-          editUrl: 'https://github.com/razorblade23/the-python-ledger/edit/main/',
+          editUrl: 'https://github.com/razorblade23/the-python-ledger/edit/main/curriculum/',
         },
         blog: {
           showReadingTime: true,
@@ -131,13 +131,17 @@ const config = {
             title: 'More',
             items: [
               {
-                label: 'GitHub',
+                label: 'Docusaurus',
                 href: 'https://github.com/facebook/docusaurus',
+              },
+              {
+                label: 'Skulpt',
+                href: 'https://github.com/skulpt/skulpt',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} The Python Ledger. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} The Python Ledger. Built with Docusaurus and Skulpt.`,
       },
       prism: {
         theme: prismThemes.github,
