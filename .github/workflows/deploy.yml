@@ -1,0 +1,23 @@
+name: Build and Deploy
+on:
+  repository_dispatch:
+    types: [curriculum_updated]   
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Clone Curriculum
+        run: git clone https://github.com/razorblade23/the-python-ledger.git ../the-python-ledger
+      - name: Install and Build
+        run: |
+          npm install
+          npm run build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
