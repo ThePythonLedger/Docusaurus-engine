@@ -33,7 +33,7 @@ export default function Home() {
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      description="Free, comprehensive curriculum designed to take students from their first 'Hello World' to building professional-grade applications in Python. ">
       <HomepageHeader />
       <main>
         <HomepageFeatures />
