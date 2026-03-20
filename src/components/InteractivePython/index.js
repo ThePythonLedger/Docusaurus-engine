@@ -5,16 +5,15 @@ import { oneDark } from '@codemirror/theme-one-dark';
 import styles from './styles.module.css';
 
 export default function InteractivePython({ children }) {
-  const initialCode = children.props.children.trim();
+  const initialCode = children?.props?.children?.trim() || '';
   const [code, setCode] = useState(initialCode);
-  const [isSkulptReady, setIsSkulptReady] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
 
+  const workerRef = useRef(null);
   const outputRef = useRef(null);
   const inputContainerRef = useRef(null);
   const inputPromptRef = useRef(null);
   const inputFieldRef = useRef(null);
-  const resolveInputRef = useRef(null);
 
   const appendOutput = (text) => {
     if (outputRef.current) outputRef.current.textContent += text;
@@ -42,90 +41,75 @@ export default function InteractivePython({ children }) {
     const prompt = inputPromptRef.current.textContent;
     hideInput();
     appendOutput(prompt + value + "\n");
-    if (resolveInputRef.current) {
-      const resolve = resolveInputRef.current;
-      resolveInputRef.current = null;
-      resolve(value);
+    
+    // Send the input back to the worker to resume execution
+    if (workerRef.current) {
+      workerRef.current.postMessage({ type: 'INPUT_RESPONSE', payload: value });
     }
   };
 
+  // Cleanup worker on component unmount
   useEffect(() => {
-    if (inputContainerRef.current) {
-      inputContainerRef.current.style.display = 'none';
-    }
+    return () => stopWorker();
   }, []);
 
-  useEffect(() => {
-    const loadScript = (src) => new Promise((resolve, reject) => {
-      const script = document.createElement('script');
-      script.src = src;
-      script.async = true;
-      script.onload = resolve;
-      script.onerror = reject;
-      document.body.appendChild(script);
-    });
-
-    async function initSkulpt() {
-      try {
-        if (!window.Sk) {
-          await loadScript("https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js");
-          await loadScript("https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js");
-        }
-        setIsSkulptReady(true);
-      } catch (err) {
-        console.error("Failed to load Skulpt scripts", err);
-      }
+  const stopWorker = () => {
+    if (workerRef.current) {
+      workerRef.current.terminate();
+      workerRef.current = null;
+      setIsRunning(false);
+      hideInput();
+      appendOutput("\n[Process Terminated]");
     }
-    initSkulpt();
-  }, []);
+  };
 
   const runCode = () => {
-    if (!isSkulptReady || !window.Sk) return;
-
     clearOutput();
     hideInput();
     setIsRunning(true);
-    resolveInputRef.current = null;
 
-    window.Sk.configure({
-      output: (text) => appendOutput(text),
-      read: (x) => {
-        if (window.Sk.builtinFiles === undefined || window.Sk.builtinFiles["files"][x] === undefined)
-          throw "File not found: '" + x + "'";
-        return window.Sk.builtinFiles["files"][x];
-      },
-      inputfunTakesPrompt: true,
-      execLimit: 10000, // 10 sec
-      yieldLimit: 100,
-      inputfun: (prompt) => {
-        return new Promise((resolve) => {
-          resolveInputRef.current = resolve;
-          showInput(prompt);
-        });
-      },
-      __future__: window.Sk.python3
-    });
+    // Terminate any existing worker before starting a new one
+    if (workerRef.current) {
+      workerRef.current.terminate();
+    }
 
-    window.Sk.misceval.asyncToPromise(() =>
-      window.Sk.importMainWithBody("<stdin>", false, code, true)
-    ).then(
-      () => { setIsRunning(false); hideInput(); },
-      (err) => {
-        appendOutput("\n" + err.toString());
-        setIsRunning(false);
-        hideInput();
-      }
+    // Initialize the Web Worker
+    workerRef.current = new Worker(
+      new URL('./skulpt.worker.js', import.meta.url)
     );
+
+    // Handle incoming messages from Skulpt
+    workerRef.current.onmessage = (e) => {
+      const { type, payload } = e.data;
+
+      switch (type) {
+        case 'OUTPUT':
+          appendOutput(payload);
+          break;
+        case 'INPUT_PROMPT':
+          showInput(payload);
+          break;
+        case 'FINISHED':
+          setIsRunning(false);
+          appendOutput("\n[Program Finished]");
+          break;
+        case 'ERROR':
+          setIsRunning(false);
+          appendOutput("\n" + payload);
+          break;
+        default:
+          break;
+      }
+    };
+
+    // Send the code to the worker to start execution
+    workerRef.current.postMessage({ type: 'RUN_CODE', payload: code });
   };
 
   return (
     <div className={styles.wrapper}>
-      {/* ── Header ── */}
       <div className={styles.codeHeader}>
-        <span className={styles.codeHeaderText}>Python Ledger Editor</span>
-        <span className={`${styles.codeHeaderStatus} ${isSkulptReady ? styles.ready : ''}`}>
-          {isSkulptReady ? '● READY' : '○ LOADING...'}
-        </span>
+        <span className={styles.codeHeaderText}>Python Sandbox</span>
       </div>
 
       <CodeMirror
@@ -135,19 +119,29 @@ export default function InteractivePython({ children }) {
         onChange={(value) => setCode(value)}
       />
 
-      {/* ── Run Button ── */}
-      <button
-        className={styles.runButton}
-        onClick={runCode}
-        disabled={!isSkulptReady || isRunning}
-      >
-        {isRunning ? '⏳ Running...' : '▶  Execute Program'}
-      </button>
+      <div style={{ display: 'flex', gap: '10px', margin: '10px 0' }}>
+        <button
+          className={styles.runButton}
+          onClick={runCode}
+          disabled={isRunning}
+        >
+          ▶ Execute Program
+        </button>
+        
+        {/* The Kill Switch */}
+        <button
+          className={styles.runButton}
+          onClick={stopWorker}
+          disabled={!isRunning}
+          style={{ backgroundColor: isRunning ? '#d9534f' : '#555' }}
+        >
+          ■ Stop Execution
+        </button>
+      </div>
 
-      {/* ── Console ── */}
       <div className={styles.console}>
         <pre ref={outputRef} className={styles.output} />
-        <div ref={inputContainerRef} className={styles.inputForm}>
+        <div ref={inputContainerRef} className={styles.inputForm} style={{ display: 'none' }}>
           <span ref={inputPromptRef} className={styles.promptText} />
           <input
             ref={inputFieldRef}
