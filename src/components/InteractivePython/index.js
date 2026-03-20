@@ -3,8 +3,12 @@ import CodeMirror from '@uiw/react-codemirror';
 import { python } from '@codemirror/lang-python';
 import { oneDark } from '@codemirror/theme-one-dark';
 import styles from './styles.module.css';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 export default function InteractivePython({ children }) {
+  const { siteConfig } = useDocusaurusContext();
+  const baseUrl = siteConfig.baseUrl;
+
   const initialCode = children?.props?.children?.trim() || '';
   const [code, setCode] = useState(initialCode);
   const [isRunning, setIsRunning] = useState(false);
@@ -74,9 +78,7 @@ export default function InteractivePython({ children }) {
     }
 
     // Initialize the Web Worker
-    workerRef.current = new Worker(
-      new URL('./skulpt.worker.js', import.meta.url)
-    );
+    workerRef.current = new Worker(`${baseUrl}skulpt.worker.js`);
 
     // Handle incoming messages from Skulpt
     workerRef.current.onmessage = (e) => {
