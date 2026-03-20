@@ -95,6 +95,8 @@ export default function InteractivePython({ children }) {
         return window.Sk.builtinFiles["files"][x];
       },
       inputfunTakesPrompt: true,
+      execLimit: 10000, // 10 sec
+      yieldLimit: 100,
       inputfun: (prompt) => {
         return new Promise((resolve) => {
           resolveInputRef.current = resolve;
