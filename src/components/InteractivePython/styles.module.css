@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap");
 
 /* ── Scanline texture overlay ── */
 .wrapper::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background: repeating-linear-gradient(
@@ -31,6 +31,11 @@
     0 8px 32px rgba(0, 0, 0, 0.6);
 }
 
+[data-theme="light"] {
+  .output {
+    background-color: #030a03;
+  }
+}
 /* ── Title bar ── */
 .codeHeader {
   background-color: #050f05;
@@ -42,15 +47,15 @@
 }
 
 .codeHeader::before {
-  content: '▮';
+  content: "▮";
   color: #00ff46;
   font-size: 1rem;
   animation: blink 1.2s step-end infinite;
-  font-family: 'VT323', monospace;
+  font-family: "VT323", monospace;
 }
 
 .codeHeaderText {
-  font-family: 'VT323', monospace;
+  font-family: "VT323", monospace;
   font-size: 1.1rem;
   color: #00ff46;
   letter-spacing: 0.12rem;
@@ -60,7 +65,7 @@
 
 .codeHeaderStatus {
   margin-left: auto;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: "Share Tech Mono", monospace;
   font-size: 0.7rem;
   color: #2a7a2a;
   letter-spacing: 0.08rem;
@@ -81,11 +86,13 @@
   border: none;
   border-top: 1px solid #1a3a1a;
   border-bottom: 1px solid #1a3a1a;
-  font-family: 'VT323', monospace;
+  font-family: "VT323", monospace;
   font-size: 1.2rem;
   letter-spacing: 0.15rem;
   cursor: pointer;
-  transition: background-color 0.15s ease, text-shadow 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    text-shadow 0.15s ease;
   text-shadow: 0 0 8px rgba(0, 255, 70, 0.4);
   text-transform: uppercase;
 }
@@ -93,7 +100,9 @@
 .runButton:hover:not(:disabled) {
   background-color: #071407;
   color: #33ff6e;
-  text-shadow: 0 0 14px rgba(0, 255, 70, 0.9), 0 0 30px rgba(0, 255, 70, 0.4);
+  text-shadow:
+    0 0 14px rgba(0, 255, 70, 0.9),
+    0 0 30px rgba(0, 255, 70, 0.4);
 }
 
 .runButton:disabled {
@@ -119,7 +128,7 @@
   margin: 0;
   padding: 1rem 1.2rem;
   color: #a8ffb8;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: "Share Tech Mono", monospace;
   font-size: 0.9rem;
   line-height: 1.7;
   white-space: pre-wrap;
@@ -141,7 +150,7 @@
 }
 
 .promptText {
-  font-family: 'Share Tech Mono', monospace;
+  font-family: "Share Tech Mono", monospace;
   font-size: 0.9rem;
   color: #00cc38;
   white-space: pre;
@@ -155,7 +164,7 @@
   border: none;
   outline: none;
   color: #e0ffe8;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: "Share Tech Mono", monospace;
   font-size: 0.9rem;
   caret-color: #00ff46;
   text-shadow: 0 0 4px rgba(224, 255, 232, 0.3);
@@ -166,7 +175,7 @@
   background: transparent;
   border: 1px solid #1a4a1a;
   color: #2a8a2a;
-  font-family: 'VT323', monospace;
+  font-family: "VT323", monospace;
   font-size: 1rem;
   letter-spacing: 0.08rem;
   padding: 2px 12px;
@@ -187,11 +196,20 @@
 
 /* ── Animations ── */
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
