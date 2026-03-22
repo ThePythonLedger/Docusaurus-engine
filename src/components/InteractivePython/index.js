@@ -9,7 +9,14 @@ export default function InteractivePython({ children }) {
   const { siteConfig } = useDocusaurusContext();
   const baseUrl = siteConfig.baseUrl;
 
-  const initialCode = children?.props?.children?.trim() || '';
+  const rawCode = children?.props?.children?.trim() || '';
+  const lines = rawCode.split('\n').length;
+  const minLines = 5;
+
+  const initialCode =
+  lines < minLines
+    ? rawCode + '\n'.repeat(minLines - lines)
+    : rawCode;
   const [code, setCode] = useState(initialCode);
   const [isRunning, setIsRunning] = useState(false);
 
