@@ -35,7 +35,8 @@ This is causing a tab crash on infinite loops, and will be fixed in upcoming fix
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/razorblade23/the-python-ledger.git
-   cd the-python-ledger
+   git clone https://github.com/razorblade23/the-python-ledger-engine.git
+   cd the-python-ledger-engine
    ```
 
 2. **Install dependencies:**
