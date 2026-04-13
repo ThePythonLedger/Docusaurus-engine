@@ -20,15 +20,15 @@ const config = {
   },
 
   // Set the production url of your site here
-  url: 'https://razorblade23.github.io',
+  url: 'https://thepythonledger.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/the-python-ledger-engine/',
+  baseUrl: '/Docusaurus-engine/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'razorblade23', // Usually your GitHub org/user name.
-  projectName: 'the-python-ledger', // Usually your repo name.
+  organizationName: 'The Python Ledger', // Usually your GitHub org/user name.
+  projectName: 'Docusaurus-engine', // Usually your repo name.
 
   onBrokenLinks: 'throw',
 
