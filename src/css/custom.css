@@ -1,66 +1,77 @@
-/**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
- */
-
-/* You can override the default Infima variables here. */
-:root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
-}
-
-/* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
-}
-
-/* Targeting screens smaller than 996px (Docusaurus mobile/tablet breakpoint) */
-@media screen and (max-width: 996px) {
+/* Mobile and Tablet optimizations */
+@media (max-width: 996px) {
   :root {
-    /* Reduce the base font size globally for mobile */
+    /* Reduce global base font size */
     --ifm-font-size-base: 14px;
-    
-    /* Shrink button padding and font size */
+
+    /* Shrink global button dimensions */
     --ifm-button-padding-vertical: 6px;
     --ifm-button-padding-horizontal: 12px;
-    --ifm-button-font-size: 0.8rem;
+    --ifm-button-font-size: 0.85rem;
+    
+    /* Adjust navbar item spacing for tighter fit */
+    --ifm-navbar-item-padding-horizontal: 8px;
   }
 
-  /* Specific fix for input fields and textareas */
+  /* Fix for input fields and textareas */
   input, 
-  textarea, 
-  select {
-    font-size: 16px !important; /* Prevents iOS from auto-zooming on focus */
+  textarea,
+  .navbar__search-input {
+    font-size: 16px !important; /* Prevents browser auto-zoom on iOS */
     padding: 8px !important;
-    width: 100%; /* Ensures they don't overflow the container */
-    box-sizing: border-box;
+    height: auto !important;
+    max-width: 100%;
   }
 
-  /* Adjust standard button classes if they feel too bulky */
-  .button {
-    margin-bottom: 0.5rem;
-    display: inline-block;
-    width: auto;
+  /* Specific sizing for the Docusaurus Search Bar if it overflows */
+  .navbar__search {
+    margin-left: 0.5rem;
   }
 
-  /* If your inputs are inside a specific container that is too wide */
-  .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
+  .navbar__search-input {
+    width: 140px; /* Constrains the width on narrow screens */
+  }
+
+  .navbar__search-input:focus {
+    width: 180px; /* Expands slightly when active */
+  }
+
+  /* Reduce heading sizes on mobile to prevent layout breaking */
+  h1 {
+    font-size: 1.75rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  /* Adjust Hero buttons if they appear in your homepage components */
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .button--lg {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    width: 100%; /* Makes buttons full-width on mobile for easier tapping */
+    max-width: 300px;
+  }
+}
+
+/* Extra small devices (phones) */
+@media (max-width: 480px) {
+  :root {
+    --ifm-font-size-base: 13px;
+  }
+
+  .navbar__brand {
+    margin-right: 0.2rem;
+  }
+
+  .navbar__title {
+    font-size: 0.9rem;
+    display: none; /* Optional: hides title text on very small screens to save space */
   }
 }
