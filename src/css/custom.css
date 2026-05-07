@@ -28,3 +28,39 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* Targeting screens smaller than 996px (Docusaurus mobile/tablet breakpoint) */
+@media screen and (max-width: 996px) {
+  :root {
+    /* Reduce the base font size globally for mobile */
+    --ifm-font-size-base: 14px;
+    
+    /* Shrink button padding and font size */
+    --ifm-button-padding-vertical: 6px;
+    --ifm-button-padding-horizontal: 12px;
+    --ifm-button-font-size: 0.8rem;
+  }
+
+  /* Specific fix for input fields and textareas */
+  input, 
+  textarea, 
+  select {
+    font-size: 16px !important; /* Prevents iOS from auto-zooming on focus */
+    padding: 8px !important;
+    width: 100%; /* Ensures they don't overflow the container */
+    box-sizing: border-box;
+  }
+
+  /* Adjust standard button classes if they feel too bulky */
+  .button {
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    width: auto;
+  }
+
+  /* If your inputs are inside a specific container that is too wide */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
