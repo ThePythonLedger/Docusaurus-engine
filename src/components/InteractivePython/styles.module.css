@@ -151,7 +151,7 @@
 
 .promptText {
   font-family: "Share Tech Mono", monospace;
-  font-size: 0.9rem;
+  font-size: 0.4rem;
   color: #00cc38;
   white-space: pre;
   text-shadow: 0 0 6px rgba(0, 204, 56, 0.4);
@@ -165,7 +165,7 @@
   outline: none;
   color: #e0ffe8;
   font-family: "Share Tech Mono", monospace;
-  font-size: 0.9rem;
+  font-size: 0.5rem;
   caret-color: #00ff46;
   text-shadow: 0 0 4px rgba(224, 255, 232, 0.3);
   padding: 0 4px;
