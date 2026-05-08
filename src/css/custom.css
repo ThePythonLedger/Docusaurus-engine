@@ -29,6 +29,9 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
+h1 {color: #fff;}
+h2 {color: #fff;}
+
 /* Mobile and Tablet optimizations */
 @media (max-width: 996px) {
   :root {
