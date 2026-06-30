@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap");
 
 /* ── Scanline texture overlay ── */
-.wrapper::after {
+/* .wrapper::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -15,7 +15,7 @@
   pointer-events: none;
   z-index: 10;
   border-radius: 10px;
-}
+} */
 
 .wrapper {
   position: relative;
@@ -33,8 +33,41 @@
 
 [data-theme="light"] {
   .output {
-    background-color: #030a03;
+    background-color: #dbdbdb;
+    color: hsl(0, 0%, 10%);
   }
+  .console {
+    background-color: #dbdbdb;
+  }
+  .codeHeader {
+    background-color: #e0e0e0;
+    border-bottom: 1px solid #c0c0c0;
+  }
+  .runButton {
+    background-color: #e0e0e0;
+    color: hsl(0, 0%, 10%);
+    border-top: 1px solid #c0c0c0;
+    border-bottom: 1px solid #c0c0c0;
+  }
+  .runButton:hover:not(:disabled) {
+    background-color: #d0d0d0;
+    color: hsl(0, 0%, 10%);
+  }
+  .submitInputBtn {
+    background: #e0e0e0;
+    border: 1px solid #c0c0c0;
+    color: hsl(0, 0%, 10%);
+  }
+  .submitInputBtn:hover {
+    background-color: #d0d0d0;
+    border-color: hsl(0, 0%, 10%);
+    color: hsl(0, 0%, 10%);
+  }
+  .codeHeaderText {
+    color: hsl(0, 0%, 10%);
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  }
+  
 }
 /* ── Title bar ── */
 .codeHeader {
@@ -128,8 +161,8 @@
   margin: 0;
   padding: 1rem 1.2rem;
   color: #a8ffb8;
+  font-size: 0.875rem;
   font-family: "Share Tech Mono", monospace;
-  font-size: 0.5rem;
   line-height: 1.2;
   white-space: pre-wrap;
   text-shadow: 0 0 4px rgba(168, 255, 184, 0.25);
@@ -151,7 +184,7 @@
 
 .promptText {
   font-family: "Share Tech Mono", monospace;
-  font-size: 0.4rem;
+  font-size: 0.875rem;
   color: #00cc38;
   white-space: pre;
   text-shadow: 0 0 6px rgba(0, 204, 56, 0.4);
@@ -211,5 +244,20 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+@media (min-width: 768px) {
+  .output {
+    font-size: 1rem;
+  }
+  .promptText {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 996px) {
+  .output {
+    font-size: 1.2em;
   }
 }
