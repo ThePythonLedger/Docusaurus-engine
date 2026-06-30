@@ -20,11 +20,6 @@ To support interactive `input()` calls without freezing the browser's UI thread 
 3. Skulpt "suspends" execution while the promise is pending.
 4. Once the user submits the HTML form, the promise resolves, and the Python state resumes exactly where it left off.
 
-### Configuration
-The engine is tuned with `execLimit: Infinity` for interactive lessons, ensuring students have unlimited time to process logic and provide inputs without the watchdog timer killing the script.
-
-This is causing a tab crash on infinite loops, and will be fixed in upcoming fixes. Being tracked on `issues` tab.
-
 ## 🛠️ Getting Started
 
 ### Prerequisites
@@ -34,9 +29,9 @@ This is causing a tab crash on infinite loops, and will be fixed in upcoming fix
 ### Installation
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/razorblade23/the-python-ledger.git
-   git clone https://github.com/razorblade23/the-python-ledger-engine.git
-   cd the-python-ledger-engine
+   git clone https://github.com/ThePythonLedger/Curriculum.git
+   git clone https://github.com/ThePythonLedger/Docusaurus-engine.git
+   cd Docusaurus-engine
    ```
 
 2. **Install dependencies:**
@@ -58,8 +53,8 @@ This is causing a tab crash on infinite loops, and will be fixed in upcoming fix
 
 We are looking for contributors to help with both **Engine Polish** and **Lesson Content**.
 
-- **Engine:** Improving the terminal UI, adding support for external libraries, or optimizing Skulpt's output handling.
-- **Content:** Drafting new lessons in Markdown and improving existing lessons.
+- **Engine:** Improving the terminal UI or optimizing Skulpt's output handling.
+- **Content:** Drafting new lessons in Markdown and improving existing lessons (tracked separately)
 
 See `CONTRIBUTING.md` for our full guidelines and the Discord community for real-time discussion.
 
