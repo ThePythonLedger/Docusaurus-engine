@@ -9,6 +9,9 @@ The technical core of **The Python Ledger**, an interactive, browser-based learn
 - **Editor:** [@uiw/react-codemirror](https://uiwjs.github.io/react-codemirror/) (Python syntax highlighting)
 - **Deployment:** CI/CD via GitHub Actions
 
+## 🌍 Visit the site
+Visit the site hosted by [GitHub Pages](https://thepythonledger.github.io/Docusaurus-engine/)
+
 ## ⚙️ How the Engine Works
 
 Unlike standard documentation, this project uses a custom React component, `InteractivePython`, to turn static code blocks into live environments.
