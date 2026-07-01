@@ -46,10 +46,9 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          path: '../the-python-ledger/curriculum', // Path to your local Markdown repo
-          routeBasePath: '/', 
+          path: '../the-python-ledger/curriculum',
+          routeBasePath: '/lessons', 
           sidebarPath: require.resolve('./sidebars.js'),
-          // This allows students to click "Edit this page" and go to the content repo
           editUrl: ({ docPath }) => {
              return `https://github.com/razorblade23/the-python-ledger/edit/main/curriculum/${docPath}`;
            },
@@ -75,6 +74,18 @@ const config = {
       }),
     ],
   ],
+  plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'introduction', // Unique identifier for this instance
+        path: '../the-python-ledger/introduction', // Path to your second MD folder
+        routeBasePath: '/introduction', // Base URL (e.g., /introduction/hello-world)
+        sidebarPath: require.resolve('./sidebarsIntroduction.js'),
+        // You can also add a unique editUrl here if needed
+      },
+    ],
+  ],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
@@ -93,9 +104,16 @@ const config = {
         items: [
           {
             type: 'docSidebar',
+            sidebarId: 'introductionSidebar', // Must match the ID inside sidebarsExercises.js
+            docsPluginId: 'introduction',     // MUST match the 'id' you set in the plugins array above
+            position: 'left',
+            label: 'Introduction',
+          },
+          {
+            type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Lessons',
           },
           {
             href: 'https://github.com/razorblade23/the-python-ledger',
