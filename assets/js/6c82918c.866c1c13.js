@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkthe_python_ledger_engine=globalThis.webpackChunkthe_python_ledger_engine||[]).push([[441],{4042(e){e.exports=JSON.parse('{"name":"docusaurus-plugin-content-docs","id":"introduction"}')}}]);
