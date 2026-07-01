@@ -19,7 +19,8 @@
   background-color: var(--ifm-background-surface-color, #ffffff);
   color: var(--ifm-font-color-base, #1c1e21);
   width: 90%;
-  max-width: 500px;
+  height: 70%;
+  max-width: 750px;
   border-radius: 12px;
   padding: 24px;
   position: relative;
