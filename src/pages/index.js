@@ -3,6 +3,7 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
+import GitHubConnectButton from '@site/src/components/GitHubConnectButton';
 
 import Heading from '@theme/Heading';
 import styles from './index.module.css';
@@ -22,6 +23,7 @@ function HomepageHeader() {
             to="/introduction/introduction">
             Start Your First Lesson - 5min ⏱️
           </Link>
+          <GitHubConnectButton/>
         </div>
       </div>
     </header>
