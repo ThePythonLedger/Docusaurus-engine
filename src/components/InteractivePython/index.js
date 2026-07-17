@@ -4,10 +4,15 @@ import { python } from '@codemirror/lang-python';
 import { oneDark } from '@codemirror/theme-one-dark';
 import styles from './styles.module.css';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+// Import Docusaurus's color mode hook
+import { useColorMode } from '@docusaurus/theme-common';
 
 export default function InteractivePython({ children }) {
   const { siteConfig } = useDocusaurusContext();
   const baseUrl = siteConfig.baseUrl;
+  
+  // Track current color mode (light vs dark) to adjust editor background
+  const { colorMode } = useColorMode();
 
   const rawCode = children?.props?.children?.trim() || '';
   const lines = rawCode.split('\n').length;
@@ -52,7 +57,7 @@ export default function InteractivePython({ children }) {
     const prompt = inputPromptRef.current.textContent;
     hideInput();
     appendOutput(prompt + value + "\n");
-    
+
     // Send the input back to the worker to resume execution
     if (workerRef.current) {
       workerRef.current.postMessage({ type: 'INPUT_RESPONSE', payload: value });
@@ -123,12 +128,13 @@ export default function InteractivePython({ children }) {
 
       <CodeMirror
         value={code}
-        theme={oneDark}
+        /* Automatically switch the CodeMirror skin theme based on site's light/dark mode */
+        theme={colorMode === 'dark' ? oneDark : 'light'}
         extensions={[python()]}
         onChange={(value) => setCode(value)}
       />
 
-      <div style={{ display: 'flex', gap: '10px', margin: '10px 0' }}>
+      <div className={styles.buttonGroup}>
         <button
           className={styles.runButton}
           onClick={runCode}
@@ -136,13 +142,12 @@ export default function InteractivePython({ children }) {
         >
           ▶ Execute Program
         </button>
-        
-        {/* The Kill Switch */}
+
+        {/* Dynamic class handles the "stop" active/disabled colors gracefully without hardcoded CSS strings */}
         <button
-          className={styles.runButton}
+          className={`${styles.runButton} ${styles.stopButton}`}
           onClick={stopWorker}
           disabled={!isRunning}
-          style={{ backgroundColor: isRunning ? '#d9534f' : '#555' }}
         >
           ■ Stop Execution
         </button>
