@@ -202,3 +202,47 @@
     padding: 0.6rem 1rem;
   }
 }
+
+/* ==========================================================================
+   7. EDITOR THEME INTEGRATION (Light & Dark matching)
+   ========================================================================= */
+
+/* Default / Dark Mode style for the editor container */
+.wrapper :global(.cm-editor),
+.wrapper :global(.CodeMirror) {
+  background-color: #1e293b !important; /* Matches your dark surface color */
+  color: #f8fafc !important;
+}
+
+.wrapper :global(.cm-gutters),
+.wrapper :global(.CodeMirror-gutters) {
+  background-color: #0f172a !important; /* Slightly darker gutter for line numbers */
+  border-right: 1px solid var(--ifm-toc-border-color) !important;
+  color: #64748b !important;
+}
+
+/* Light Theme overrides - Making the editor look completely native to Light Mode */
+[data-theme="light"] .wrapper :global(.cm-editor),
+[data-theme="light"] .wrapper :global(.CodeMirror) {
+  background-color: #ffffff !important; /* Pure clean white for light mode editor */
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .wrapper :global(.cm-gutters),
+[data-theme="light"] .wrapper :global(.CodeMirror-gutters) {
+  background-color: #f8fafc !important; /* Soft slate white gutter */
+  border-right: 1px solid var(--ifm-toc-border-color) !important;
+  color: #94a3b8 !important;
+}
+
+/* Match the active cursor color per theme */
+[data-theme="light"] .wrapper :global(.cm-cursor),
+[data-theme="light"] .wrapper :global(.CodeMirror-cursor) {
+  border-left: 2px solid var(--ifm-color-primary) !important;
+}
+
+[data-theme="dark"] .wrapper :global(.cm-cursor),
+[data-theme="dark"] .wrapper :global(.CodeMirror-cursor) {
+  border-left: 2px solid var(--ifm-color-primary-light) !important;
+}
+
