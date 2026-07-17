@@ -246,3 +246,25 @@
   border-left: 2px solid var(--ifm-color-primary-light) !important;
 }
 
+/* Button block layout instead of flat, raw margins */
+.buttonGroup {
+  display: flex;
+  width: 100%;
+}
+
+/* Stop button specifics (no neon/harsh inline styles) */
+.runButton.stopButton {
+  border-left: 1px solid var(--ifm-toc-border-color);
+  background-color: var(--ifm-color-danger, #e11d48); /* Soft rose/red state */
+}
+
+.runButton.stopButton:hover:not(:disabled) {
+  background-color: var(--ifm-color-danger-dark, #be123c);
+}
+
+.runButton.stopButton:disabled {
+  background-color: var(--ifm-background-color);
+  color: var(--ifm-font-color-secondary);
+  opacity: 0.6;
+}
+
