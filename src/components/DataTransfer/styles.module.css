@@ -1,0 +1,70 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.buttonsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.actionButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #24292f;
+  color: #ffffff;
+  border: 1px solid rgba(27, 31, 36, 0.15);
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.actionButton:hover {
+  background-color: #1f2327;
+}
+
+.actionButton.secondary {
+  background-color: transparent;
+  color: var(--ifm-font-color-base, #1c1e21);
+  border: 1px solid var(--ifm-color-emphasis-300, #ccd0d5);
+}
+
+.actionButton.secondary:hover {
+  background-color: var(--ifm-color-emphasis-100, #f5f6f7);
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.statusMessage {
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.statusMessage.success {
+  background-color: rgba(45, 164, 78, 0.15);
+  color: #2da44e;
+  border: 1px solid rgba(45, 164, 78, 0.3);
+}
+
+.statusMessage.error {
+  background-color: rgba(250, 56, 62, 0.1);
+  color: #fa383e;
+  border: 1px solid rgba(250, 56, 62, 0.2);
+}
+
+.hint {
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-600, #6b7280);
+  margin: 0;
+}

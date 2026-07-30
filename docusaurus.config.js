@@ -116,6 +116,10 @@ const config = {
             label: 'Lessons',
           },
           {
+            type: 'custom-github-connect',
+            position: 'right',
+          },
+          {
             href: 'https://github.com/razorblade23/the-python-ledger',
             label: 'GitHub',
             position: 'right',
