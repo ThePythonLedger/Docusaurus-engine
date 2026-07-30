@@ -23,7 +23,6 @@ function HomepageHeader() {
             to="/introduction/how-course-works">
             Start Your First Lesson - 5min ⏱️
           </Link>
-          <GitHubConnectButton/>
         </div>
       </div>
     </header>
