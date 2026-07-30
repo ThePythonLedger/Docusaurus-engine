@@ -4,7 +4,7 @@ import { useTracker } from '../../context/TrackerContext'; // Import your establ
 import { verifyGitHubToken } from '../../utils/github'; // Utility to verify token with GitHub
 
 export default function GitHubAuthModal({ isOpen, onClose }) {
-  const { saveToken } = useTracker();
+  const { login } = useTracker();
   const [token, setToken] = useState('');
   const [status, setStatus] = useState({ state: 'idle', message: '' });
 
@@ -16,8 +16,9 @@ export default function GitHubAuthModal({ isOpen, onClose }) {
       // 1. Check the token using our client utility
       const user = await verifyGitHubToken(token);
       
-      // 2. If valid, save it to TrackerContext (and thus localStorage)
-      saveToken(token);
+      // 2. If valid, save the token AND the profile info to TrackerContext
+      //    (and thus localStorage) so /profile can render without refetching.
+      login(token, user);
       
       // 3. Clear state and notify user
       setStatus({ state: 'success', message: `Token verified. Connected as ${user.login}!` });

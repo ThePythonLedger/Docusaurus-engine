@@ -1,0 +1,97 @@
+.header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 1px solid var(--ifm-toc-border-color, #ebedf0);
+}
+
+.username {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.handle {
+  margin: 2px 0 4px;
+  color: var(--ifm-color-emphasis-600, #6b7280);
+}
+
+.profileLink {
+  font-size: 0.9rem;
+}
+
+.logoutButton {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid var(--ifm-color-emphasis-300, #ccd0d5);
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--ifm-font-color-base, #1c1e21);
+}
+
+.logoutButton:hover {
+  background-color: var(--ifm-color-emphasis-100, #f5f6f7);
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+.progressSummary {
+  font-weight: 600;
+}
+
+.lessonList {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lessonItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border: 1px solid var(--ifm-toc-border-color, #ebedf0);
+  border-radius: 6px;
+}
+
+.lessonDate {
+  color: var(--ifm-color-emphasis-600, #6b7280);
+  font-size: 0.85rem;
+}
+
+.warning {
+  background-color: rgba(210, 153, 34, 0.12);
+  border-left: 4px solid #d29922;
+  padding: 10px 14px;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.loggedOut {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.loggedOut h1 {
+  margin-bottom: 12px;
+}
+
+.loggedOut p {
+  margin-bottom: 24px;
+  color: var(--ifm-color-emphasis-600, #6b7280);
+}

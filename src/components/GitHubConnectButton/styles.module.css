@@ -36,3 +36,20 @@
 .icon {
   flex-shrink: 0;
 }
+
+/* .connectBtn is a <Link> once connected, so it needs its own
+   text-decoration reset since it's no longer a <button>. */
+.connected {
+  text-decoration: none;
+}
+
+.connected:hover {
+  text-decoration: none;
+}
+
+.avatar {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}

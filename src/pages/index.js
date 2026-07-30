@@ -21,8 +21,9 @@ function HomepageHeader() {
           <Link
             className="button button--secondary button--lg"
             to="/introduction/introduction">
-            Start Your Journey
+            Start Your First Lesson - 5min ⏱️
           </Link>
+          <GitHubConnectButton/>
         </div>
       </div>
     </header>
