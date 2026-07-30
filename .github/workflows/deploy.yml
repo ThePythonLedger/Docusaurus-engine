@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Clone Curriculum
-        run: git clone https://github.com/razorblade23/the-python-ledger.git ../the-python-ledger
+        run: git clone https://github.com/ThePythonLedger/Curriculum.git ../Curriculum
       - name: Install and Build
         run: |
           npm install

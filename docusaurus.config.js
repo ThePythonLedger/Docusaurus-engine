@@ -46,7 +46,7 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          path: '../the-python-ledger/curriculum',
+          path: '../Curriculum/curriculum',
           routeBasePath: '/lessons', 
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: ({ docPath }) => {
@@ -79,7 +79,7 @@ const config = {
       '@docusaurus/plugin-content-docs',
       {
         id: 'introduction', // Unique identifier for this instance
-        path: '../the-python-ledger/introduction', // Path to your second MD folder
+        path: '../Curriculum/introduction', // Path to your second MD folder
         routeBasePath: '/introduction', // Base URL (e.g., /introduction/hello-world)
         sidebarPath: require.resolve('./sidebarsIntroduction.js'),
         // You can also add a unique editUrl here if needed

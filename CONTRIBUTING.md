@@ -8,22 +8,23 @@ First off, thank you for considering contributing! Projects like this live and b
 
 ### 1. Content Contributor (Education)
 Help us build the curriculum! We need writers who can explain complex Python concepts in a beginner-friendly way.
-* **Target:** [The Python Ledger](https://github.com/razorblade23/the-python-ledger).
-* **Format:** Markdown files using our custom `<InteractivePython>` component (You do not need to know React, its rendered automaticly for you if using `interactive` tag on a code block.
+* **Target:** [The Python Ledger](https://github.com/ThePythonLedger/Curriculum).
+* **Format:** Markdown files using our custom `<InteractivePython>` component for rendering engine to provide runnable python instance (You do not need to know React, its rendered automaticly for you if using `interactive` tag on a code block.
 * **Goal:** Create hands-on projects (like the Text Adventure) that reinforce the ledger theme or expand and fix lessons.
 
 ### 2. Engine Contributor (Development)
 Help us polish the interactive experience. 
-* **Target:** `/src/components/InteractivePython/`.
-* **Tech:** React, Skulpt.js, CodeMirror.
-* **Focus:** Improving terminal UI, handling edge cases in Python execution, or adding support for Python standard libraries.
+* **Target:** `*`.
+* **Tech:** React, CodeMirror.
+* **Focus:** Improving UI, adding features.
 
 ---
 
 ## 🚀 How to Get Started
 
-1. **Find an Issue:** Check the [GitHub Issues](https://github.com/razorblade23/the-python-ledger-engine/issues) for tags like `good first issue` or `help wanted`.
+1. **Find an Issue:** Check the [GitHub Issues](https://github.com/ThePythonLedger/Docusaurus-engine/issues) for tags like `good first issue` or `help wanted`.
 2. **Fork & Clone:** Fork the repo and clone it locally.
+3. **Clone Curriculum**: You will need Curriculum to successfily build the engine
 3. **Install Dependencies:**
    ```bash
    npm install
