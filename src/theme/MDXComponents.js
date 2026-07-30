@@ -1,12 +1,8 @@
 import MDXComponents from '@theme-original/MDXComponents';
 import InteractivePython from '@site/src/components/InteractivePython';
-import MarkLessonComplete from '@site/src/components/MarkLessonComplete';
 
 export default {
   ...MDXComponents,
-  // Makes <MarkLessonComplete /> usable in any .mdx lesson file with
-  // no import statement needed in the lesson content itself.
-  MarkLessonComplete,
   // We wrap the standard 'pre' tag (which wraps code blocks)
   pre: (props) => {
     const isInteractive = props.children?.props?.metastring?.includes('interactive');
