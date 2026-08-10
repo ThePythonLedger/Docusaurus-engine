@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from '@docusaurus/Link';
 import styles from './styles.module.css';
-import GitHubAuthModal from '../GitHubAuthModal';
+import LoginModal from '../LoginModal';
 import { useTracker } from '../../context/TrackerContext';
 
 const GitHubMark = () => (
@@ -16,24 +16,48 @@ const GitHubMark = () => (
   </svg>
 );
 
+// Generic person glyph for local-mode sessions, which have no avatar of
+// their own.
+const PersonIcon = () => (
+  <svg
+    viewBox="0 0 16 16"
+    width="16"
+    height="16"
+    className={styles.icon}
+    aria-hidden="true"
+  >
+    <path
+      fill="currentColor"
+      d="M8 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm0 1.5c-3.03 0-6 1.5-6 3.75V15h12v-1.75c0-2.25-2.97-3.75-6-3.75Z"
+    />
+  </svg>
+);
+
 export default function GitHubConnectButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { progress } = useTracker();
+  const session = progress?.session;
 
-  // Determine if the user is already "logged in" by checking for a token
-  const isConnected = !!progress?.token;
-
-  if (isConnected) {
+  if (session?.authMode === 'github') {
     // Once connected, this doubles as the entry point to /profile —
     // it's the only nav element that links there.
     return (
       <Link to="/profile" className={`${styles.connectBtn} ${styles.connected}`}>
-        {progress.user?.avatar_url ? (
-          <img src={progress.user.avatar_url} alt="" className={styles.avatar} />
+        {session.avatarUrl ? (
+          <img src={session.avatarUrl} alt="" className={styles.avatar} />
         ) : (
           <GitHubMark />
         )}
-        <span>{progress.user?.login ?? 'GitHub Connected'}</span>
+        <span>{session.username}</span>
+      </Link>
+    );
+  }
+
+  if (session?.authMode === 'local') {
+    return (
+      <Link to="/profile" className={`${styles.connectBtn} ${styles.connected} ${styles.localConnected}`}>
+        <PersonIcon />
+        <span>{session.username}</span>
       </Link>
     );
   }
@@ -41,15 +65,12 @@ export default function GitHubConnectButton() {
   return (
     <>
       <button className={styles.connectBtn} onClick={() => setIsModalOpen(true)}>
-        <GitHubMark />
-        <span>Connect GitHub</span>
+        <PersonIcon />
+        <span>Log In</span>
       </button>
 
       {/* The modal is rendered at the root level here, waiting to pop up */}
-      <GitHubAuthModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
+      <LoginModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 }

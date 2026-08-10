@@ -1,0 +1,131 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Security Context Alert Box */
+.securityNotice {
+  background-color: rgba(9, 105, 218, 0.1);
+  border-left: 4px solid #0969da;
+  padding: 12px 16px;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 20px;
+}
+
+.securityNotice h3 {
+  margin: 0 0 6px 0;
+  font-size: 0.95rem;
+  color: #0969da;
+}
+
+.securityNotice p {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+/* Step-by-Step Generation Guide */
+.instructions {
+  margin-bottom: 20px;
+}
+
+.instructions h3 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.instructions ol {
+  padding-left: 20px;
+  margin: 0 0 10px;
+  font-size: 0.9rem;
+}
+
+.instructions li {
+  margin-bottom: 6px;
+}
+
+.scopeNote {
+  font-size: 0.8rem;
+  color: var(--ifm-color-emphasis-600, #6b7280);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Forms & Inputs */
+.tokenInputArea {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.tokenInputArea label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.tokenInputArea input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--ifm-color-emphasis-300, #ccd0d5);
+  background-color: var(--ifm-background-color, #ffffff);
+  color: var(--ifm-font-color-base, #1c1e21);
+  font-family: monospace;
+  font-size: 0.9rem;
+  transition: border-color 0.15s ease;
+}
+
+.tokenInputArea input:focus {
+  outline: none;
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.3);
+}
+
+/* Toast/Status Indicators */
+.statusMessage {
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.statusMessage.validating {
+  background-color: var(--ifm-color-emphasis-200, #f5f6f7);
+  color: var(--ifm-color-emphasis-700, #444950);
+}
+
+.statusMessage.success {
+  background-color: rgba(45, 164, 78, 0.15);
+  color: #2da44e;
+  border: 1px solid rgba(45, 164, 78, 0.3);
+}
+
+.statusMessage.error {
+  background-color: rgba(250, 56, 62, 0.1);
+  color: #fa383e;
+  border: 1px solid rgba(250, 56, 62, 0.2);
+}
+
+.primaryButton {
+  align-self: flex-start;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background-color: #24292f;
+  color: #ffffff;
+  border: 1px solid rgba(27, 31, 36, 0.15);
+}
+
+.primaryButton:hover:not(:disabled) {
+  background-color: #1f2327;
+}
+
+.primaryButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

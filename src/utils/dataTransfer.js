@@ -1,4 +1,4 @@
-const SCHEMA_VERSION = 1;
+const SCHEMA_VERSION = 2;
 
 // Accepts both the old shape (array of plain id strings) and the new
 // shape (array of {id, title, completedAt}) so nothing breaks for
@@ -13,20 +13,22 @@ export function normalizeCompleted(completed) {
 }
 
 /**
- * Builds the exportable snapshot of a user's local progress.
+ * Builds the exportable snapshot of a user's progress. Works the same
+ * for local-mode and GitHub-mode sessions (or no session at all).
  *
- * Deliberately excludes the GitHub token: this file is meant to move
- * between a person's own devices (or get pasted into a support channel
- * if something breaks), and a token should never leave the browser it
- * was typed into.
+ * Deliberately excludes the PAT: this file is meant to move between a
+ * person's own devices (or get pasted into a support channel if
+ * something breaks), and a token should never leave the browser it was
+ * typed into. This is also what gets pushed into the backup gist for
+ * GitHub-mode users, so it needs to stay PAT-free for that path too.
  */
 export function buildExportPayload(progress) {
+  const session = progress?.session;
   return {
     schemaVersion: SCHEMA_VERSION,
     exportedAt: new Date().toISOString(),
-    githubUser: progress?.user
-      ? { login: progress.user.login, avatarUrl: progress.user.avatar_url }
-      : null,
+    username: session?.username ?? null,
+    authMode: session?.authMode ?? null,
     completedLessons: normalizeCompleted(progress?.completed),
   };
 }

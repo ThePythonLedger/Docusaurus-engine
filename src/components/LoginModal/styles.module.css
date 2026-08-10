@@ -1,0 +1,177 @@
+/* Backdrop overlay that covers the entire viewport */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* The Modal Card container */
+.modalContent {
+  background-color: var(--ifm-background-surface-color, #ffffff);
+  color: var(--ifm-font-color-base, #1c1e21);
+  width: 90%;
+  max-width: 640px;
+  max-height: 85vh;
+  overflow-y: auto;
+  border-radius: 12px;
+  padding: 24px;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--ifm-toc-border-color, #ebedf0);
+  animation: slideUp 0.25s cubic-bezier(0.3, 0, 0.5, 1);
+}
+
+.closeButton {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--ifm-color-emphasis-500, #737a85);
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.closeButton:hover {
+  color: var(--ifm-color-danger, #fa383e);
+}
+
+.modalHeader {
+  margin-bottom: 16px;
+  padding-right: 24px;
+}
+
+.modalHeader h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--ifm-toc-border-color, #ebedf0);
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--ifm-color-emphasis-600, #6b7280);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.tab:hover {
+  color: var(--ifm-font-color-base, #1c1e21);
+}
+
+.tabActive {
+  color: var(--ifm-color-primary, #0969da);
+  border-bottom-color: var(--ifm-color-primary, #0969da);
+}
+
+.tabIntro {
+  font-size: 0.9rem;
+  color: var(--ifm-color-emphasis-700, #444950);
+  margin: 0 0 16px;
+  line-height: 1.4;
+}
+
+/* Quick Start form */
+.localForm {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.localForm label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.localForm input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--ifm-color-emphasis-300, #ccd0d5);
+  background-color: var(--ifm-background-color, #ffffff);
+  color: var(--ifm-font-color-base, #1c1e21);
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  transition: border-color 0.15s ease;
+}
+
+.localForm input:focus {
+  outline: none;
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.3);
+}
+
+.statusMessage {
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.statusMessage.error {
+  background-color: rgba(250, 56, 62, 0.1);
+  color: #fa383e;
+  border: 1px solid rgba(250, 56, 62, 0.2);
+}
+
+.primaryButton {
+  align-self: flex-start;
+  padding: 8px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background-color: #24292f;
+  color: #ffffff;
+  border: 1px solid rgba(27, 31, 36, 0.15);
+}
+
+.primaryButton:hover {
+  background-color: #1f2327;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(15px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
