@@ -23,7 +23,7 @@
   background-color: #131518;
 }
 
-/* Styled state when token exists in LocalStorage */
+/* Styled state when a GitHub session exists */
 .connectBtn.connected {
   background-color: #2da44e;
   border-color: rgba(27, 31, 36, 0.15);
@@ -31,6 +31,16 @@
 
 .connectBtn.connected:hover {
   background-color: #2c974b;
+}
+
+/* Local-mode sessions aren't GitHub-branded, so they get a neutral
+   accent color instead of GitHub green. */
+.connectBtn.localConnected {
+  background-color: var(--ifm-color-primary, #0969da);
+}
+
+.connectBtn.localConnected:hover {
+  background-color: var(--ifm-color-primary-dark, #085ec4);
 }
 
 .icon {
