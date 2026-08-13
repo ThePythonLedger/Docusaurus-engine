@@ -79,7 +79,7 @@ const config = {
       '@docusaurus/plugin-content-docs',
       {
         id: 'advanced', // Unique identifier for this instance
-        path: '../Curriculum/advanced', // Path to your second MD folder
+        path: '../advanced', // Path to your second MD folder
         routeBasePath: '/advanced', // Base URL (e.g., /advanced/hello-world)
         sidebarPath: require.resolve('./sidebarsAdvanced.js'),
         // You can also add a unique editUrl here if needed
