@@ -78,10 +78,10 @@ const config = {
     [
       '@docusaurus/plugin-content-docs',
       {
-        id: 'introduction', // Unique identifier for this instance
-        path: '../Curriculum/introduction', // Path to your second MD folder
-        routeBasePath: '/introduction', // Base URL (e.g., /introduction/hello-world)
-        sidebarPath: require.resolve('./sidebarsIntroduction.js'),
+        id: 'advanced', // Unique identifier for this instance
+        path: '../Curriculum/advanced', // Path to your second MD folder
+        routeBasePath: '/advanced', // Base URL (e.g., /advanced/hello-world)
+        sidebarPath: require.resolve('./sidebarsAdvanced.js'),
         // You can also add a unique editUrl here if needed
       },
     ],
@@ -104,16 +104,16 @@ const config = {
         items: [
           {
             type: 'docSidebar',
-            sidebarId: 'introductionSidebar', // Must match the ID inside sidebarsExercises.js
-            docsPluginId: 'introduction',     // MUST match the 'id' you set in the plugins array above
-            position: 'left',
-            label: 'Introduction',
-          },
-          {
-            type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
             label: 'Lessons',
+          },
+          {
+            type: 'docSidebar',
+            sidebarId: 'advancedSidebar', // Must match the ID inside sidebarsAdvanced.js
+            docsPluginId: 'advanced',     // MUST match the 'id' you set in the plugins array above
+            position: 'left',
+            label: 'Advanced',
           },
           {
             type: 'custom-github-connect',
