@@ -157,17 +157,25 @@ export default function InteractivePython({ children }) {
         <pre ref={outputRef} className={styles.output} />
         <div ref={inputContainerRef} className={styles.inputForm} style={{ display: 'none' }}>
           <span ref={inputPromptRef} className={styles.promptText} />
-          <input
-            ref={inputFieldRef}
-            type="text"
-            className={styles.terminalInput}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                e.preventDefault();
-                submitInput();
-              }
-            }}
-          />
+          <form
+  ref={inputContainerRef}
+  className={styles.inputForm}
+  style={{ display: 'none' }}
+  onSubmit={(e) => {
+    e.preventDefault();
+    submitInput();
+  }}
+>
+  <span ref={inputPromptRef} className={styles.promptText} />
+  <input
+    ref={inputFieldRef}
+    type="text"
+    className={styles.terminalInput}
+  />
+  <button type="submit" className={styles.submitInputBtn}>
+    Enter ↵
+  </button>
+</form>
           <button type="button" className={styles.submitInputBtn} onClick={submitInput}>
             Enter ↵
           </button>
