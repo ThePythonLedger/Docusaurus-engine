@@ -148,6 +148,7 @@
 
 .terminalInput {
   flex: 1;
+  min-width: 0; /* Prevents input from overflowing flex container on mobile */
   background: transparent;
   border: none;
   outline: none;
@@ -192,14 +193,15 @@
     font-size: 0.85rem;
     padding: 0.85rem 1rem;
   }
-  
+
   .promptText, 
   .terminalInput {
     font-size: 0.85rem;
   }
 
   .inputForm {
-    padding: 0.6rem 1rem;
+    padding: 0.6rem 0.8rem;
+    flex-wrap: wrap; /* Allows wrap on tight screens to keep button visible */
   }
 }
 
