@@ -4,14 +4,12 @@ import { python } from '@codemirror/lang-python';
 import { oneDark } from '@codemirror/theme-one-dark';
 import styles from './styles.module.css';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-// Import Docusaurus's color mode hook
 import { useColorMode } from '@docusaurus/theme-common';
 
 export default function InteractivePython({ children }) {
   const { siteConfig } = useDocusaurusContext();
   const baseUrl = siteConfig.baseUrl;
-  
-  // Track current color mode (light vs dark) to adjust editor background
+
   const { colorMode } = useColorMode();
 
   const rawCode = children?.props?.children?.trim() || '';
@@ -19,9 +17,9 @@ export default function InteractivePython({ children }) {
   const minLines = 5;
 
   const initialCode =
-  lines < minLines
-    ? rawCode + '\n'.repeat(minLines - lines)
-    : rawCode;
+    lines < minLines
+      ? rawCode + '\n'.repeat(minLines - lines)
+      : rawCode;
   const [code, setCode] = useState(initialCode);
   const [isRunning, setIsRunning] = useState(false);
 
@@ -58,13 +56,11 @@ export default function InteractivePython({ children }) {
     hideInput();
     appendOutput(prompt + value + "\n");
 
-    // Send the input back to the worker to resume execution
     if (workerRef.current) {
       workerRef.current.postMessage({ type: 'INPUT_RESPONSE', payload: value });
     }
   };
 
-  // Cleanup worker on component unmount
   useEffect(() => {
     return () => stopWorker();
   }, []);
@@ -84,15 +80,12 @@ export default function InteractivePython({ children }) {
     hideInput();
     setIsRunning(true);
 
-    // Terminate any existing worker before starting a new one
     if (workerRef.current) {
       workerRef.current.terminate();
     }
 
-    // Initialize the Web Worker
     workerRef.current = new Worker(`${baseUrl}skulpt.worker.js`);
 
-    // Handle incoming messages from Skulpt
     workerRef.current.onmessage = (e) => {
       const { type, payload } = e.data;
 
@@ -116,7 +109,6 @@ export default function InteractivePython({ children }) {
       }
     };
 
-    // Send the code to the worker to start execution
     workerRef.current.postMessage({ type: 'RUN_CODE', payload: code });
   };
 
@@ -128,7 +120,6 @@ export default function InteractivePython({ children }) {
 
       <CodeMirror
         value={code}
-        /* Automatically switch the CodeMirror skin theme based on site's light/dark mode */
         theme={colorMode === 'dark' ? oneDark : 'light'}
         extensions={[python()]}
         onChange={(value) => setCode(value)}
@@ -143,7 +134,6 @@ export default function InteractivePython({ children }) {
           ▶ Execute Program
         </button>
 
-        {/* Dynamic class handles the "stop" active/disabled colors gracefully without hardcoded CSS strings */}
         <button
           className={`${styles.runButton} ${styles.stopButton}`}
           onClick={stopWorker}
@@ -155,31 +145,26 @@ export default function InteractivePython({ children }) {
 
       <div className={styles.console}>
         <pre ref={outputRef} className={styles.output} />
-        <div ref={inputContainerRef} className={styles.inputForm} style={{ display: 'none' }}>
+
+        <form
+          ref={inputContainerRef}
+          className={styles.inputForm}
+          style={{ display: 'none' }}
+          onSubmit={(e) => {
+            e.preventDefault();
+            submitInput();
+          }}
+        >
           <span ref={inputPromptRef} className={styles.promptText} />
-          <form
-  ref={inputContainerRef}
-  className={styles.inputForm}
-  style={{ display: 'none' }}
-  onSubmit={(e) => {
-    e.preventDefault();
-    submitInput();
-  }}
->
-  <span ref={inputPromptRef} className={styles.promptText} />
-  <input
-    ref={inputFieldRef}
-    type="text"
-    className={styles.terminalInput}
-  />
-  <button type="submit" className={styles.submitInputBtn}>
-    Enter ↵
-  </button>
-</form>
-          <button type="button" className={styles.submitInputBtn} onClick={submitInput}>
+          <input
+            ref={inputFieldRef}
+            type="text"
+            className={styles.terminalInput}
+          />
+          <button type="submit" className={styles.submitInputBtn}>
             Enter ↵
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );
