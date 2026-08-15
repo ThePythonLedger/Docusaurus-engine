@@ -8,6 +8,13 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
+// Single source of truth for the curriculum content paths, shared
+// between the docs plugin instances below and the curriculum-manifest
+// plugin (which reads the same directories to build the /profile
+// progress tracker's category/lesson outline).
+const CURRICULUM_PATH = '../Curriculum/curriculum';
+const ADVANCED_PATH = '../Curriculum/advanced';
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'The Python Ledger',
@@ -46,7 +53,7 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          path: '../Curriculum/curriculum',
+          path: CURRICULUM_PATH,
           routeBasePath: '/lessons', 
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: ({ docPath }) => {
@@ -79,10 +86,25 @@ const config = {
       '@docusaurus/plugin-content-docs',
       {
         id: 'advanced', // Unique identifier for this instance
-        path: '../Curriculum/advanced', // Path to your second MD folder
+        path: ADVANCED_PATH, // Path to your second MD folder
         routeBasePath: '/advanced', // Base URL (e.g., /advanced/hello-world)
         sidebarPath: require.resolve('./sidebarsAdvanced.js'),
         // You can also add a unique editUrl here if needed
+      },
+    ],
+    [
+      './src/plugins/curriculum-manifest',
+      {
+        // `key` must match the docs plugin id above so /profile can
+        // cross-reference categories here against real permalinks
+        // from that plugin's own global data (see useDocsData calls
+        // in CurriculumProgress). Add a new entry here if a lesson
+        // section ever gets its own docs plugin instance instead of
+        // living as a subfolder of an existing one.
+        sections: [
+          { key: 'default', label: 'Course', path: CURRICULUM_PATH },
+          { key: 'advanced', label: 'Advanced', path: ADVANCED_PATH },
+        ],
       },
     ],
   ],

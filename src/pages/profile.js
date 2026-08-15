@@ -1,20 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
+import { usePluginData } from '@docusaurus/useGlobalData';
 import { useTracker } from '../context/TrackerContext';
 import { verifyGitHubToken } from '../utils/github';
 import DataTransfer from '../components/DataTransfer';
 import GitHubPatForm from '../components/GitHubPatForm';
+import CurriculumProgress from '../components/CurriculumProgress';
 import styles from './profile.module.css';
-
-// Older completed-lesson entries may only be a raw doc id
-// (e.g. "foundations/variables") with no stored title — turn
-// that into something readable instead of showing the raw slug.
-function formatLessonLabel(entry) {
-  if (entry.title) return entry.title;
-  const slug = entry.id.split('/').pop() ?? entry.id;
-  return slug.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
-}
 
 function SyncStatusBadge({ syncStatus, syncError, lastSyncedAt, retrySync }) {
   if (syncStatus === 'syncing') {
@@ -75,6 +68,11 @@ export default function ProfilePage() {
   const session = progress?.session;
   const [liveUser, setLiveUser] = useState(null);
   const [userError, setUserError] = useState(null);
+  const manifest = usePluginData('curriculum-manifest-plugin');
+  const completedIds = useMemo(() => {
+    const entries = Array.isArray(progress?.completed) ? progress.completed : [];
+    return new Set(entries.map((entry) => (typeof entry === 'string' ? entry : entry.id)));
+  }, [progress?.completed]);
 
   // Re-verify against the GitHub API on load so the avatar/username
   // stay current even if they've changed since the token was saved.
@@ -124,9 +122,6 @@ export default function ProfilePage() {
   }
 
   const githubUser = session.authMode === 'github' ? liveUser ?? session.githubProfile : null;
-  const completedEntries = (Array.isArray(progress.completed) ? progress.completed : [])
-    .map((entry) => (typeof entry === 'string' ? { id: entry, title: null, completedAt: null } : entry))
-    .sort((a, b) => (b.completedAt ?? '').localeCompare(a.completedAt ?? ''));
 
   return (
     <Layout title="Profile" description="Your Python Ledger profile and progress">
@@ -176,25 +171,12 @@ export default function ProfilePage() {
 
         <section className={styles.section}>
           <h2>Progress</h2>
-          <p className={styles.progressSummary}>
-            {completedEntries.length === 0
-              ? "You haven't completed any lessons yet."
-              : `${completedEntries.length} lesson${completedEntries.length === 1 ? '' : 's'} completed`}
-          </p>
-          {completedEntries.length > 0 && (
-            <ul className={styles.lessonList}>
-              {completedEntries.map((entry) => (
-                <li key={entry.id} className={styles.lessonItem}>
-                  <span>✅ {formatLessonLabel(entry)}</span>
-                  {entry.completedAt && (
-                    <span className={styles.lessonDate}>
-                      {new Date(entry.completedAt).toLocaleDateString()}
-                    </span>
-                  )}
-                </li>
-              ))}
-            </ul>
-          )}
+          {manifest.sections.map((section) => (
+            <div key={section.key} className={styles.progressSection}>
+              <h3>{section.label}</h3>
+              <CurriculumProgress section={section} pluginId={section.key} completedIds={completedIds} />
+            </div>
+          ))}
         </section>
 
         <section className={styles.section}>

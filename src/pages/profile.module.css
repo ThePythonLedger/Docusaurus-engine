@@ -47,30 +47,22 @@
   margin-bottom: 40px;
 }
 
-.progressSummary {
-  font-weight: 600;
+.progressSection {
+  margin-top: 20px;
 }
 
-.lessonList {
-  list-style: none;
-  padding: 0;
-  margin: 16px 0 0;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+.progressSection:first-child {
+  margin-top: 8px;
 }
 
-.lessonItem {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 14px;
-  border: 1px solid var(--ifm-toc-border-color, #ebedf0);
-  border-radius: 6px;
+.progressSection + .progressSection {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--ifm-toc-border-color, #ebedf0);
 }
 
-.lessonDate {
-  color: var(--ifm-color-emphasis-600, #6b7280);
-  font-size: 0.85rem;
+.progressSection h3 {
+  margin-bottom: 12px;
 }
 
 .warning {
