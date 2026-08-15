@@ -1,27 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import Link from '@docusaurus/Link';
-import { useDocsData } from '@docusaurus/plugin-content-docs/client';
+import { useResolvedCategories } from '../../utils/curriculumProgress';
 import styles from './styles.module.css';
-
-// The docs plugin's global data is a flat list of every doc in that
-// plugin instance: [{ id, path, sidebar }]. `id` is the same
-// "category-slug/lesson-slug" shape the curriculum-manifest plugin
-// builds its `docId`s in (both ultimately derive from the same
-// folder/file names), so this just maps docId -> real permalink.
-// Generated category-index pages show up in this list too, with an
-// `id` that starts with "/" instead of a plain slug — those aren't
-// lessons, so they're filtered out.
-function usePermalinkMap(pluginId) {
-  const docsData = useDocsData(pluginId);
-  return useMemo(() => {
-    const docs = docsData?.versions?.[0]?.docs ?? [];
-    const map = {};
-    docs.forEach((doc) => {
-      if (!doc.id.startsWith('/')) map[doc.id] = doc.path;
-    });
-    return map;
-  }, [docsData]);
-}
 
 function CategoryGroup({ category, isExpanded, onToggle }) {
   return (
@@ -84,28 +64,8 @@ function CategoryGroup({ category, isExpanded, onToggle }) {
  * choice sticks, on top of the default.
  */
 export default function CurriculumProgress({ section, pluginId, completedIds }) {
-  const permalinkMap = usePermalinkMap(pluginId);
+  const categories = useResolvedCategories(section, pluginId, completedIds);
   const [overrides, setOverrides] = useState({});
-
-  const categories = useMemo(() => {
-    return section.categories.map((category) => {
-      const lessons = category.lessons.map((lesson) => {
-        const permalink = permalinkMap[lesson.docId];
-        const done = Boolean(permalink && completedIds.has(permalink));
-        return { ...lesson, permalink, done };
-      });
-      const total = lessons.length;
-      const completedCount = lessons.filter((l) => l.done).length;
-      return {
-        slug: category.slug,
-        label: category.label,
-        lessons,
-        total,
-        completedCount,
-        isComplete: total > 0 && completedCount === total,
-      };
-    });
-  }, [section, permalinkMap, completedIds]);
 
   const currentSlug = useMemo(() => {
     const current = categories.find((c) => !c.isComplete);
