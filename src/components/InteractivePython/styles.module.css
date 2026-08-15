@@ -131,7 +131,6 @@
   gap: 8px;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
   background-color: rgba(0, 0, 0, 0.02);
-  width: 100%;
 }
 
 [data-theme="dark"] .inputForm {
@@ -145,32 +144,23 @@
   color: var(--ifm-color-primary);
   font-weight: 600;
   flex-shrink: 0;
-  white-space: nowrap;
 }
 
 .terminalInput {
   flex: 1;
-  min-width: 80px; /* Prevents flexbox from collapsing input to 0px width */
-  background: rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: transparent;
+  border: none;
   outline: none;
-  color: #0f172a;
+  color: #f8fafc;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.9rem;
   caret-color: var(--ifm-color-primary);
-  padding: 6px 8px;
+  padding: 4px 6px;
   border-radius: 4px;
-  transition: border-color 0.15s ease;
 }
 
-[data-theme="dark"] .terminalInput {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.12);
-  color: #f8fafc;
-}
-
-.terminalInput:focus {
-  border-color: var(--ifm-color-primary);
+[data-theme="light"] .terminalInput {
+  color: #0f172a;
 }
 
 /* Accessible and clean action button */
@@ -182,7 +172,7 @@
   font-weight: 600;
   font-size: 0.8rem;
   letter-spacing: 0.02rem;
-  padding: 6px 12px;
+  padding: 6px 14px;
   cursor: pointer;
   border-radius: 4px;
   transition: background-color 0.15s ease;
@@ -202,20 +192,14 @@
     font-size: 0.85rem;
     padding: 0.85rem 1rem;
   }
-
+  
   .promptText, 
   .terminalInput {
     font-size: 0.85rem;
   }
 
   .inputForm {
-    padding: 0.5rem 0.75rem;
-    gap: 6px; /* Tightens gaps so prompt, input, and button fit cleanly on one line */
-  }
-
-  .submitInputBtn {
-    padding: 6px 10px;
-    font-size: 0.75rem;
+    padding: 0.6rem 1rem;
   }
 }
 
