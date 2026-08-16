@@ -1,25 +1,42 @@
-name: Build and Deploy
+name: Engine CI/CD
+
 on:
-  repository_dispatch:
-    types: [curriculum_updated]   
+  pull_request:
+    branches: [main]
   push:
     branches: [main]
+  repository_dispatch:
+    types: [curriculum_updated]
 
 jobs:
-  deploy:
+  build-and-deploy:
+    name: Build & Validate Site
     runs-on: ubuntu-latest
     permissions:
       contents: write
+
     steps:
-      - uses: actions/checkout@v4
-      - name: Clone Curriculum
+      - name: Checkout Engine
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Clone Curriculum (main)
         run: git clone https://github.com/ThePythonLedger/Curriculum.git ../Curriculum
+
       - name: Install and Build
         run: |
-          npm install
+          npm ci
           npm run build
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+
+      # Deploy ONLY on main branch pushes or curriculum dispatch events (skipped on PRs)
+      - name: Deploy to GitHub Pages
+        if: github.event_name == 'push' || github.event_name == 'repository_dispatch'
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
