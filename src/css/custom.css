@@ -202,3 +202,65 @@ kbd:hover {
   transform: translateY(1px);
   box-shadow: 0 1px 0 var(--ifm-color-emphasis-300);
 }
+
+/* ==========================================================================
+   5. EXPLORE ADMINITION CSS
+   ========================================================================== */
+
+/* Base Light Theme */
+:root {
+  --ifm-color-admonition-explore: #7c3aed;
+  --ifm-color-admonition-explore-background: rgba(124, 58, 237, 0.08);
+}
+
+/* Dark Mode Enhancements */
+[data-theme='dark'] .alert--explore {
+  /* High contrast neon purple accent line */
+  border-left-color: #d8b4fe !important; 
+  border-left-width: 4px;
+
+  /* Richer, distinctly visible purple container background */
+  background-color: rgba(168, 85, 247, 0.22) !important;
+
+  /* Subtle border & outer glow to separate from page background */
+  border-top: 1px solid rgba(216, 180, 254, 0.2);
+  border-right: 1px solid rgba(216, 180, 254, 0.2);
+  border-bottom: 1px solid rgba(216, 180, 254, 0.2);
+  box-shadow: 0 4px 20px rgba(168, 85, 247, 0.15);
+}
+
+/* Header Text & Icon Contrast */
+[data-theme='dark'] .alert--explore .admonition-heading h5,
+[data-theme='dark'] .alert--explore .admonition-icon {
+  color: #e9d5ff !important;
+  fill: none !important;
+}
+
+/* Fix for broken icon wrapper square */
+.alert--explore .admonition-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Admonition Layout & Icon Fixes */
+.alert--explore {
+  border-left-width: 4px;
+  border-left-color: var(--ifm-color-admonition-explore);
+  background-color: var(--ifm-color-admonition-explore-background);
+}
+
+[data-theme='dark'] .alert--explore {
+  /* Subtle glow to separate it from dark page backgrounds */
+  box-shadow: 0 0 12px rgba(192, 132, 252, 0.08);
+}
+
+/* Target Header & Icon Styling */
+.alert--explore .admonition-heading h5,
+.alert--explore .admonition-icon {
+  color: var(--ifm-color-admonition-explore);
+}
+
+.alert--explore .admonition-icon svg {
+  stroke: var(--ifm-color-admonition-explore);
+  fill: none;
+}
