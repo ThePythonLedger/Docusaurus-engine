@@ -56,6 +56,9 @@ const config = {
           path: CURRICULUM_PATH,
           routeBasePath: '/lessons', 
           sidebarPath: require.resolve('./sidebars.js'),
+          admonitions: {
+            keywords: ['explore'],
+          },
           editUrl: ({ docPath }) => {
              return `https://github.com/razorblade23/the-python-ledger/edit/main/curriculum/${docPath}`;
            },
