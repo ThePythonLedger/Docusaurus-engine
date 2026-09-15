@@ -1,0 +1,195 @@
+name: Preview Pages Management
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request:
+    branches: [main]
+    types: [closed]
+
+jobs:
+  check-permission:
+    name: Check Author & Command
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '/preview')
+    runs-on: ubuntu-latest
+    outputs:
+      authorized: ${{ steps.check.outputs.authorized }}
+    steps:
+      - name: Check user permissions
+        id: check
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const username = context.actor;
+
+            const { data: permission } = await github.rest.repos.getCollaboratorPermissionLevel({
+              owner,
+              repo,
+              username,
+            });
+
+            const allowed = ['admin', 'write'].includes(permission.permission);
+            if (!allowed) {
+              core.setFailed(`User @${username} is not authorized to trigger preview deployments.`);
+            }
+            core.setOutput('authorized', allowed);
+
+  notify-preview-start:
+    name: Post Building Comment & Cleanup Trigger
+    needs: check-permission
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    outputs:
+      pr_num: ${{ steps.pr_data.outputs.pr_num }}
+      sha: ${{ steps.pr_data.outputs.sha }}
+      ref: ${{ steps.pr_data.outputs.ref }}
+      pr_author: ${{ steps.pr_data.outputs.pr_author }}
+      comment_id: ${{ steps.create_comment.outputs.comment_id }}
+    steps:
+      - name: Get PR Information
+        id: pr_data
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+            core.setOutput('pr_num', pr.data.number);
+            core.setOutput('sha', pr.data.head.sha);
+            core.setOutput('ref', pr.data.head.ref);
+            core.setOutput('pr_author', pr.data.user.login);
+      
+      - name: Delete triggering /preview comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.deleteComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: context.payload.comment.id,
+            });
+
+      - name: Post "Preview building" comment
+        id: create_comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const triggerUser = context.actor;
+            const prAuthor = "${{ steps.pr_data.outputs.pr_author }}";
+
+            let mentions = `@${triggerUser}`;
+            if (prAuthor && prAuthor !== triggerUser) {
+              mentions += ` @${prAuthor}`;
+            }
+
+            const { data: comment } = await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `⏳ **Preview building...**`,
+            });
+            core.setOutput('comment_id', comment.id);
+
+  deploy-preview:
+    name: Deploy Preview to Cloudflare Pages
+    needs: [check-permission, notify-preview-start]
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+    steps:
+      - name: Checkout Engine
+        uses: actions/checkout@v4
+        with:
+          path: engine
+          repository: ThePythonLedger/Docusaurus-engine
+      
+      - name: Checkout Curriculum (PR Code)
+        uses: actions/checkout@v4
+        with:
+          path: Curriculum
+          repository: ThePythonLedger/Curriculum
+          ref: ${{ needs.notify-preview-start.outputs.sha }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: engine/package-lock.json
+
+      - name: Build Site Assets
+        env:
+          DOCUSAURUS_URL: https://engine-pr-${{ needs.notify-preview-start.outputs.pr_num }}.python-ledger-preview.pages.dev
+          DOCUSAURUS_BASE_URL: /
+        run: |
+          cd engine
+          npm ci
+          npm run build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v4
+        id: cloudflare_deploy
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          command: pages deploy engine/build --project-name=python-ledger-preview --branch=pr-${{ needs.notify-preview-start.outputs.pr_num }}
+
+      - name: Update Preview Comment with Link
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = ${{ needs.notify-preview-start.outputs.pr_num }};
+            const prAuthor = "${{ needs.notify-preview-start.outputs.pr_author }}";
+            const triggerUser = context.actor;
+            const previewUrl = `https://pr-${prNumber}.python-ledger-preview.pages.dev`;
+
+            let mentions = `@${triggerUser}`;
+            if (prAuthor && prAuthor !== triggerUser) {
+              mentions += ` @${prAuthor}`;
+            }
+
+            const message = `🚀 **Preview Deployment Ready!**\n\ncc ${mentions}\n\nView changes live at:\n${previewUrl}`;
+
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: ${{ needs.notify-preview-start.outputs.comment_id }},
+              body: message,
+            });
+
+      - name: Mark Preview as Failed
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: ${{ needs.notify-preview-start.outputs.comment_id }},
+              body: `❌ **Preview build failed.** Check the [workflow run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}) for details.`,
+            });
+
+  cleanup-preview:
+    name: Delete Cloudflare Pages Preview
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete Cloudflare Pages Branch via API
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+        run: |
+          BRANCH_NAME="pr-${{ github.event.number }}"
+          PROJECT_NAME="python-ledger-preview"
+
+          echo "Deleting Cloudflare Pages branch: $BRANCH_NAME"
+
+          curl -s -X DELETE \
+            "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/${PROJECT_NAME}/branches/${BRANCH_NAME}" \
+            -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+            -H "Content-Type: application/json"
