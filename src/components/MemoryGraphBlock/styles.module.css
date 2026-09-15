@@ -1,62 +1,5 @@
-/* ==========================================================================
-   Reuses the site's existing purple accent (see .alert--explore in
-   custom.css) so "debug" blocks read as their own category, distinct
-   from the blue InteractivePython header.
-   ========================================================================== */
 .wrapper {
   margin: 1.5rem 0;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 10px 16px;
-  background-color: rgba(124, 58, 237, 0.08);
-  border: 1px solid rgba(124, 58, 237, 0.35);
-  border-bottom: none;
-  border-radius: var(--ifm-global-radius) var(--ifm-global-radius) 0 0;
-}
-
-[data-theme='dark'] .header {
-  background-color: rgba(168, 85, 247, 0.15);
-  border-color: rgba(216, 180, 254, 0.3);
-}
-
-.headerText {
-  font-family: var(--ifm-font-family-base, sans-serif);
-  font-weight: 600;
-  font-size: 0.85rem;
-  letter-spacing: 0.05rem;
-  text-transform: uppercase;
-  color: #7c3aed;
-}
-
-[data-theme='dark'] .headerText {
-  color: #e9d5ff;
-}
-
-.openButton {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  border-radius: 6px;
-  background-color: #7c3aed;
-  color: #ffffff !important; /* override Docusaurus's default link color */
-  font-family: var(--ifm-font-family-base, sans-serif);
-  font-weight: 600;
-  font-size: 0.85rem;
-  text-decoration: none !important;
-  white-space: nowrap;
-  transition: background-color 0.15s ease;
-}
-
-.openButton:hover {
-  background-color: #6d28d9;
-  color: #ffffff !important;
 }
 
 /* Butt the code block directly against the header — no gap, no double border */
@@ -65,11 +8,4 @@
   border-top-left-radius: 0 !important;
   border-top-right-radius: 0 !important;
   border-top: none !important;
-}
-
-@media (max-width: 480px) {
-  .header {
-    justify-content: center;
-    text-align: center;
-  }
 }
