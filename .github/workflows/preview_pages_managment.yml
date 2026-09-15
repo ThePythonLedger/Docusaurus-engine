@@ -62,16 +62,6 @@ jobs:
             core.setOutput('sha', pr.data.head.sha);
             core.setOutput('ref', pr.data.head.ref);
             core.setOutput('pr_author', pr.data.user.login);
-      
-      - name: Delete triggering /preview comment
-        uses: actions/github-script@v7
-        with:
-          script: |
-            await github.rest.issues.deleteComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              comment_id: context.payload.comment.id,
-            });
 
       - name: Post "Preview building" comment
         id: create_comment
@@ -90,9 +80,19 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: `⏳ **Preview building...**`,
+              body: `⏳ **Preview building...**\n\ncc ${mentions}`,
             });
             core.setOutput('comment_id', comment.id);
+
+      - name: Delete triggering /preview comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.deleteComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: context.payload.comment.id,
+            });
 
   deploy-preview:
     name: Deploy Preview to Cloudflare Pages
@@ -102,18 +102,17 @@ jobs:
       pull-requests: write
       contents: read
     steps:
-      - name: Checkout Engine
+      - name: Checkout Engine (PR Code)
         uses: actions/checkout@v4
         with:
           path: engine
-          repository: ThePythonLedger/Docusaurus-engine
-      
-      - name: Checkout Curriculum (PR Code)
+          ref: ${{ needs.notify-preview-start.outputs.sha }}
+
+      - name: Checkout Curriculum
         uses: actions/checkout@v4
         with:
           path: Curriculum
           repository: ThePythonLedger/Curriculum
-          ref: ${{ needs.notify-preview-start.outputs.sha }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -137,7 +136,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          command: pages deploy engine/build --project-name=python-ledger-preview --branch=pr-${{ needs.notify-preview-start.outputs.pr_num }}
+          command: pages deploy engine/build --project-name=python-ledger-preview --branch=engine-pr-${{ needs.notify-preview-start.outputs.pr_num }}
 
       - name: Update Preview Comment with Link
         uses: actions/github-script@v7
@@ -146,7 +145,7 @@ jobs:
             const prNumber = ${{ needs.notify-preview-start.outputs.pr_num }};
             const prAuthor = "${{ needs.notify-preview-start.outputs.pr_author }}";
             const triggerUser = context.actor;
-            const previewUrl = `https://pr-${prNumber}.python-ledger-preview.pages.dev`;
+            const previewUrl = `https://engine-pr-${prNumber}.python-ledger-preview.pages.dev`;
 
             let mentions = `@${triggerUser}`;
             if (prAuthor && prAuthor !== triggerUser) {
@@ -184,7 +183,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
         run: |
-          BRANCH_NAME="pr-${{ github.event.number }}"
+          BRANCH_NAME="engine-pr-${{ github.event.number }}"
           PROJECT_NAME="python-ledger-preview"
 
           echo "Deleting Cloudflare Pages branch: $BRANCH_NAME"
