@@ -20,6 +20,7 @@
   padding: 12px 16px;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
   border-bottom: 1px solid var(--ifm-toc-border-color);
 }
@@ -52,6 +53,12 @@
 
 [data-theme="dark"] .codeHeaderStatus.ready {
   color: var(--ifm-color-success, #4caf50);
+}
+
+/* Pushes the Memory Graph button to the header's right edge regardless
+   of viewport width, leaving "Python Sandbox" on the left */
+.memoryGraphButton {
+  margin-left: auto;
 }
 
 /* ==========================================================================
