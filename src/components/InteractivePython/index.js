@@ -6,8 +6,9 @@ import styles from './styles.module.css';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 // Import Docusaurus's color mode hook
 import { useColorMode } from '@docusaurus/theme-common';
+import MemoryGraphButton from '@site/src/components/MemoryGraphButton';
 
-export default function InteractivePython({ children }) {
+export default function InteractivePython({ children, showMemoryGraph = false }) {
   const { siteConfig } = useDocusaurusContext();
   const baseUrl = siteConfig.baseUrl;
   
@@ -124,6 +125,9 @@ export default function InteractivePython({ children }) {
     <div className={styles.wrapper}>
       <div className={styles.codeHeader}>
         <span className={styles.codeHeaderText}>Python Sandbox</span>
+        {showMemoryGraph && (
+          <MemoryGraphButton code={rawCode} className={styles.memoryGraphButton} />
+        )}
       </div>
 
       <CodeMirror

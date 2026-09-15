@@ -1,7 +1,6 @@
 import MDXComponents from '@theme-original/MDXComponents';
 import InteractivePython from '@site/src/components/InteractivePython';
 import MemoryGraphBlock from '@site/src/components/MemoryGraphBlock';
-import MemoryGraphHeader from '@site/src/components/MemoryGraphHeader';
 
 export default {
   ...MDXComponents,
@@ -11,17 +10,8 @@ export default {
     const isInteractive = metastring.includes('interactive');
     const isDebug = metastring.includes('debug');
 
-    if (isInteractive && isDebug) {
-      const rawCode = props.children?.props?.children || '';
-      return (
-        <>
-          <MemoryGraphHeader code={rawCode} />
-          <InteractivePython {...props} />
-        </>
-      );
-    }
     if (isInteractive) {
-      return <InteractivePython {...props} />;
+      return <InteractivePython {...props} showMemoryGraph={isDebug} />;
     }
     if (isDebug) {
       return <MemoryGraphBlock {...props} />;
