@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.9.2">
 <title data-rh="true">Arithmetic Operations &amp; Operators, Operations On Strings and Comparisons | The Python Ledger</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://thepythonledger.github.io/Docusaurus-engine/img/logo.png"><meta data-rh="true" name="twitter:image" content="https://thepythonledger.github.io/Docusaurus-engine/img/logo.png"><meta data-rh="true" property="og:url" content="https://thepythonledger.github.io/Docusaurus-engine/lessons/python-foundations/math-strops-and-comparisons"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Arithmetic Operations &amp; Operators, Operations On Strings and Comparisons | The Python Ledger"><meta data-rh="true" name="description" content="In the last lesson we have learned how to output data to our screen, how to declare a variable and what different core data types exists in Python. In this lesson we will learn how math works in Python."><meta data-rh="true" property="og:description" content="In the last lesson we have learned how to output data to our screen, how to declare a variable and what different core data types exists in Python. In this lesson we will learn how math works in Python."><link data-rh="true" rel="icon" href="/Docusaurus-engine/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://thepythonledger.github.io/Docusaurus-engine/lessons/python-foundations/math-strops-and-comparisons"><link data-rh="true" rel="alternate" href="https://thepythonledger.github.io/Docusaurus-engine/lessons/python-foundations/math-strops-and-comparisons" hreflang="en"><link data-rh="true" rel="alternate" href="https://thepythonledger.github.io/Docusaurus-engine/lessons/python-foundations/math-strops-and-comparisons" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Foundations","item":"https://thepythonledger.github.io/Docusaurus-engine/lessons/category/foundations"},{"@type":"ListItem","position":2,"name":"Arithmetic Operations & Operators, Operations On Strings and Comparisons","item":"https://thepythonledger.github.io/Docusaurus-engine/lessons/python-foundations/math-strops-and-comparisons"}]}</script><link rel="stylesheet" href="/Docusaurus-engine/assets/css/styles.65fb9abc.css">
-<script src="/Docusaurus-engine/assets/js/runtime~main.2b74d4b2.js" defer="defer"></script>
+<script src="/Docusaurus-engine/assets/js/runtime~main.b932e3e9.js" defer="defer"></script>
 <script src="/Docusaurus-engine/assets/js/main.b69c8042.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -100,31 +100,42 @@ Then we can use <code>{ }</code> syntax to inject variables directly into string
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="excercise">Excercise<a href="#excercise" class="hash-link" aria-label="Direct link to Excercise" title="Direct link to Excercise" translate="no">​</a></h2>
 <p>Try to solve <a href="https://github.com/ThePythonLedger/python-exercises/tree/main/exercises%2Ffoundations%2F03_math_and_comparisons" target="_blank" rel="noopener noreferrer" class="">excercise-3</a> for better understanding.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="assignment">Assignment<a href="#assignment" class="hash-link" aria-label="Direct link to Assignment" title="Direct link to Assignment" translate="no">​</a></h2>
-<p>In the last assignment we have declared our shop variables and printed the inventory. In this one you are tasked with:</p>
+<p>In the last assignment we have declared our bookstore variables and printed the inventory. In this one you are tasked with making code more robust and logical.</p>
 <ol>
-<li class="">Open your code editor in your last project directory <code>simple-python-shop</code></li>
+<li class="">Open your code editor in your last project directory <code>simple-bookstore</code></li>
 <li class="">Open <code>main.py</code> file we have been working on</li>
 <li class="">Standardize your strings:<!-- -->
 <ul>
-<li class="">Convert <code>shop_name</code> to <strong>uppercase</strong> (e.g., <code>MERLIN SHOP</code>)</li>
-<li class="">Convert item name to <strong>titlecase</strong> (e.g., <code>Excalibur</code>)</li>
+<li class="">Convert <code>bookstore_name</code> to <strong>uppercase</strong> (e.g., <code>WILLOW CREEK BOOKS</code>)</li>
+<li class="">Convert book title to <strong>capitalised</strong> (e.g., <code>The last cartographer</code>)</li>
 </ul>
 </li>
 <li class="">Calculate the checkout price:<!-- -->
 <ul>
-<li class="">Create variable <code>total</code> by multiplying <code>item_price</code> and <code>item_quantity</code></li>
+<li class="">Create variable <code>inventory_total</code> by multiplying <code>book_price</code> and <code>book_quantity</code></li>
 </ul>
 </li>
 <li class="">Comparison checks:<!-- -->
 <ul>
-<li class="">Create a boolean <code>is_large_order</code> that evaluates whether <code>item_quantity</code> is greater then or equal to <code>3</code>.</li>
+<li class="">Modify <code>book_avilable</code> so it evaluates whether <code>book_quantity</code> is greater than <code>0</code>.</li>
 </ul>
 </li>
 <li class="">Update your output to use <strong>f-string</strong> :<!-- -->
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Welcome to MERLIN SHOP</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">--------------------------------</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Item: Excalibur</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Purchased: 3 x 67.20</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Total: $201.60</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Large Order: True</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">--------------------------------</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Thank you for your purchase !</span><br></span></code></pre></div></div>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Welcome to WILLOW CREEK BOOKS inventory system</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- - - - - - - - - - - - - - - - - - - -</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">CURRENT INVENTORY</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- - - - - - - - - - - - - - - - - - - -</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Book: The Last Cartographer -&gt; [price:18.5, copies: 3, available: True]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- - - - - - - - - - - - - - - - - - - -</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Inventory total: 55.5</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- - - - - - - - - - - - - - - - - - - -</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Thank you for using our inventory system.</span><br></span></code></pre></div></div>
 </li>
-<li class="">Commit your changes with <code>git</code> and push to Github</li>
+<li class="">Make sure your program works as expected, then:<!-- -->
+<ul>
+<li class="">Check your <em>git</em> status (<code>git status</code>)</li>
+<li class="">Above command should show that your file <code>main.py</code> has changes from the last time. Just run <code>git commit -m &quot;Added basic receipt&quot;</code> as we already have <code>main.py</code> in our commit from before.</li>
+<li class="">Finally, <code>git push</code> to your remote repository</li>
+</ul>
+</li>
 </ol>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p>While you are developing our little bookstore, most of your <code>git</code> commands will be the same in structure:</p><ul>
+<li class="">Check status with <code>git status</code>.</li>
+<li class="">Commit changes with <code>git commit -m &quot;&lt;commit_message&gt;&quot;</code>.</li>
+<li class="">Push the changes to remote repository with <code>git push</code></li>
+</ul><p>From now on, we will assume you know what commands to run in order to push the changes to remote repository, so lessons will use a shorter <code>&quot;Commit and push the changes&quot;</code> form.</p></div></div>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="deepen-your-knowledge">Deepen Your Knowledge<a href="#deepen-your-knowledge" class="hash-link" aria-label="Direct link to Deepen Your Knowledge" title="Direct link to Deepen Your Knowledge" translate="no">​</a></h2>
 <ol>
 <li class="">Learn more about <a href="https://cs.stanford.edu/people/nick/py/python-math.html#math" target="_blank" rel="noopener noreferrer" class="">Basic math in Python</a> from article in <strong>Stanford University</strong>, covering all the topics in this lesson but in a different style and a bit more.</li>

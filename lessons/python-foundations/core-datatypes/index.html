@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.9.2">
 <title data-rh="true">Outputting, Storing and Representing Data | The Python Ledger</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://thepythonledger.github.io/Docusaurus-engine/img/logo.png"><meta data-rh="true" name="twitter:image" content="https://thepythonledger.github.io/Docusaurus-engine/img/logo.png"><meta data-rh="true" property="og:url" content="https://thepythonledger.github.io/Docusaurus-engine/lessons/python-foundations/core-datatypes"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Outputting, Storing and Representing Data | The Python Ledger"><meta data-rh="true" name="description" content="Welcome to the first real python lesson. Our programs need a way to output information back to users and they also need to store varius data to perform operations on them. We will learn how to do these things in the following lesson."><meta data-rh="true" property="og:description" content="Welcome to the first real python lesson. Our programs need a way to output information back to users and they also need to store varius data to perform operations on them. We will learn how to do these things in the following lesson."><link data-rh="true" rel="icon" href="/Docusaurus-engine/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://thepythonledger.github.io/Docusaurus-engine/lessons/python-foundations/core-datatypes"><link data-rh="true" rel="alternate" href="https://thepythonledger.github.io/Docusaurus-engine/lessons/python-foundations/core-datatypes" hreflang="en"><link data-rh="true" rel="alternate" href="https://thepythonledger.github.io/Docusaurus-engine/lessons/python-foundations/core-datatypes" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Foundations","item":"https://thepythonledger.github.io/Docusaurus-engine/lessons/category/foundations"},{"@type":"ListItem","position":2,"name":"Outputting, Storing and Representing Data","item":"https://thepythonledger.github.io/Docusaurus-engine/lessons/python-foundations/core-datatypes"}]}</script><link rel="stylesheet" href="/Docusaurus-engine/assets/css/styles.65fb9abc.css">
-<script src="/Docusaurus-engine/assets/js/runtime~main.2b74d4b2.js" defer="defer"></script>
+<script src="/Docusaurus-engine/assets/js/runtime~main.b932e3e9.js" defer="defer"></script>
 <script src="/Docusaurus-engine/assets/js/main.b69c8042.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -81,26 +81,30 @@
 <p>Visit our <a href="https://github.com/ThePythonLedger/python-exercises" target="_blank" rel="noopener noreferrer" class="">python-excercise repository</a> and follow instructions there to <em>fork</em> and <em>clone</em> your own copy of excercises repository.</p>
 <p>After cloning, try to solve <a href="https://github.com/ThePythonLedger/python-exercises/tree/main/exercises%2Ffoundations%2F01_hello_world" target="_blank" rel="noopener noreferrer" class="">excercise-1</a> and <a href="https://github.com/ThePythonLedger/python-exercises/tree/main/exercises%2Ffoundations%2F02_datatypes" target="_blank" rel="noopener noreferrer" class="">excercise-2</a> for better understanding.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="assignment">Assignment<a href="#assignment" class="hash-link" aria-label="Direct link to Assignment" title="Direct link to Assignment" translate="no">​</a></h2>
-<p>Try the following excercise to establish your knowlege. We will build a shop, starting with defining (declaring) diffrent variables in this lesson and progress with our little shop as we go further along.</p>
+<p>Try the following excercise to establish your knowlege. We will build a bookstore, starting with defining (declaring) diffrent variables in this lesson and progress with our little bookstore as we go further along.</p>
 <p>You will need to do this assignment on your own machine.</p>
 <ol>
-<li class="">Create a new directory with the name <code>simple-python-shop</code></li>
-<li class="">Navigate inside the newly created directory</li>
-<li class="">Instantiate <code>git</code> repository</li>
 <li class="">Create a new file with the name <code>main.py</code></li>
-<li class="">Inside the file define the the following variables:<!-- -->
+<li class="">Inside the file define the following variables:<!-- -->
 <ul>
-<li class=""><code>shop_name</code> - set its value to some <strong>string</strong></li>
-<li class=""><code>item_name</code> - set its value to some <strong>string</strong></li>
-<li class=""><code>item_quantity</code> - set its value to some <strong>integer</strong></li>
-<li class=""><code>item_price</code> - set its value to some <strong>float</strong></li>
-<li class=""><code>item_available</code> - set its value to some <strong>boolean</strong></li>
+<li class=""><code>bookstore_name</code> - set its value to some <strong>string</strong> (<em>eg. <code>&quot;Willow Creek Books&quot;</code></em>)</li>
+<li class=""><code>book_title</code> - set its value to some <strong>string</strong> (<em>eg. <code>&quot;The Last Cartographer&quot;</code></em>)</li>
+<li class=""><code>book_quantity</code> - set its value to some <strong>integer</strong> (<em>eg. <code>3</code></em>)</li>
+<li class=""><code>book_price</code> - set its value to some <strong>float</strong> (<em>eg. <code>18.5</code></em>)</li>
+<li class=""><code>book_available</code> - set its value to some <strong>boolean</strong> (<em>eg. <code>True</code></em>)</li>
 </ul>
 </li>
 <li class="">Output the variables you defined (using <code>print()</code> function) like the following example:<!-- -->
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Shop name: Merlin Shop</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Item name: Excalibur</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Item quantity: 3</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Item price: $67.2</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Item available: True</span><br></span></code></pre></div></div>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Welcome to Willow Creek Books inventory system.</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">CURRENT INVENTORY:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Book: The Last Cartographer -&gt; [price: $18.5, copies: 3, available: True]</span><br></span></code></pre></div></div>
 </li>
-<li class="">Make sure your program works as expected then create a repository and push your code to github</li>
+<li class="">Make sure your program works as expected then:<!-- -->
+<ul>
+<li class="">Check <em>git</em> status with <code>git status</code> command.</li>
+<li class="">Above command should tell you that your <code>main.py</code> is not yet in the staging area, so we need to add it with <code>git add main.py</code> command.</li>
+<li class="">Now that we have our file in staging area, we can finally do a commit with <code>git commit -m &quot;Added basic variables&quot;</code></li>
+<li class="">Final step is to push the changes to your remote repository, which we can do with <code>git push</code> command</li>
+</ul>
+</li>
 </ol>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="deepen-your-knowlege">Deepen Your Knowlege<a href="#deepen-your-knowlege" class="hash-link" aria-label="Direct link to Deepen Your Knowlege" title="Direct link to Deepen Your Knowlege" translate="no">​</a></h2>
 <p>Go through these articles to deepen your knowlege about the topics covered in this lesson.</p>
