@@ -25,11 +25,12 @@ const config = {
   future: {
     v4: true, // Improve compatibility with the upcoming Docusaurus v4
   },
+
+  // Enable Mermaid diagrams in markdown (```mermaid code blocks)
   markdown: {
     mermaid: true,
   },
   themes: ['@docusaurus/theme-mermaid'],
-  themeConfig.mermaid.theme: { light: 'neutral', dark: 'dark' },
 
   // Set the production url of your site here
   // Set the /<baseUrl>/ pathname under which your site is served
@@ -59,7 +60,7 @@ const config = {
       ({
         docs: {
           path: CURRICULUM_PATH,
-          routeBasePath: '/lessons', 
+          routeBasePath: '/lessons',
           sidebarPath: require.resolve('./sidebars.js'),
           admonitions: {
             keywords: ['explore'],
@@ -124,6 +125,10 @@ const config = {
       image: 'img/logo.png',
       colorMode: {
         respectPrefersColorScheme: true,
+      },
+      // Mermaid diagram theme follows the site's light/dark mode
+      mermaid: {
+        theme: { light: 'neutral', dark: 'dark' },
       },
       navbar: {
         title: 'The Python Ledger',
