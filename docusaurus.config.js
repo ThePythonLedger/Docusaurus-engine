@@ -29,7 +29,7 @@ const config = {
     mermaid: true,
   },
   themes: ['@docusaurus/theme-mermaid'],
-  themeConfig.mermaid.theme: { light: 'neutral', dark: 'dark' }.
+  themeConfig.mermaid.theme: { light: 'neutral', dark: 'dark' },
 
   // Set the production url of your site here
   // Set the /<baseUrl>/ pathname under which your site is served
